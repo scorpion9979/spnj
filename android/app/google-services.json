@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "279743491886",
+    "firebase_url": "https://spnj-4b445.firebaseio.com",
+    "project_id": "spnj-4b445",
+    "storage_bucket": "spnj-4b445.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:279743491886:android:75b8893bd6c8d5998194bf",
+        "android_client_info": {
+          "package_name": "com.AhmedTawfeeq.spnj"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "279743491886-r8ptc7lgvrbpi763cs3ok5c0firvetbt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvbaqBsg66huIHK9sQTJW4furwcnr6COk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "279743491886-r8ptc7lgvrbpi763cs3ok5c0firvetbt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
