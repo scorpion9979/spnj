@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:spnj/routes.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return null;
+    return MaterialApp(
+      initialRoute: Routes.Welcome,
+      routes: Routes.getRoutes(),
+    );
   }
 }
