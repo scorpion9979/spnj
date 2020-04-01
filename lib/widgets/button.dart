@@ -12,19 +12,19 @@ class Button extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: StyleGuide.buttonVertSpacing),
       child: FlatButton(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(18.0),
+          borderRadius: BorderRadius.circular(15.0),
           side: BorderSide(
             color: StyleGuide.primaryColor,
-            width: 2.0,
+            width: 1.0,
           ),
         ),
-        color: Colors.white,
+        color: Color(0x4FFFFFFF),
         textColor: StyleGuide.primaryColor,
         onPressed: onPressed,
         child: Text(
           text.toUpperCase(),
           style: TextStyle(
-            fontSize: 16.0,
+            fontSize: 18.0,
           ),
         ),
       ),
