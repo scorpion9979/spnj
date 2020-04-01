@@ -96,6 +96,15 @@ class _TextLiquidFillModState extends State<TextLiquidFillMod>
 
     _waveController.repeat();
     _loadController.forward();
+
+    _waveController.addListener(() {
+      if (_loadController.isCompleted) {
+        _waveController
+          ..stop();
+        _loadController
+          ..stop();
+      }
+    });
   }
 
   @override
@@ -138,9 +147,9 @@ class _TextLiquidFillModState extends State<TextLiquidFillMod>
           width: _boxWidth ?? MediaQuery.of(context).size.width,
           child: ShaderMask(
             blendMode: BlendMode.srcOut,
-            shaderCallback: (bounds) =>
-                LinearGradient(colors: [widget.boxBackgroundColor], stops: [0.0])
-                    .createShader(bounds),
+            shaderCallback: (bounds) => LinearGradient(
+                colors: [widget.boxBackgroundColor],
+                stops: [0.0]).createShader(bounds),
             child: Container(
               color: Colors.transparent,
               child: Center(

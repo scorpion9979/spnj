@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:spnj/routes.dart';
+import 'package:spnj/widgets/screen.dart';
+import 'package:spnj/widgets/logo_hero.dart';
 import 'package:spnj/widgets/text_liquid_fill_mod.dart';
 import 'package:spnj/consts.dart';
 import 'package:spnj/widgets/button.dart';
@@ -38,87 +41,77 @@ class _WelcomeScreenState extends State<WelcomeScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Screen(
       backgroundColor: animation.value,
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 20.0,
-          vertical: 60.0,
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Hero(
-                  tag: 'logo',
-                  child: Container(
-                    child: Image.asset('images/logo.png'),
-                    height: 75.0,
-                  ),
-                ),
-                SizedBox(
-                  width: 190.0,
-                  height: 240.0,
-                  child: Stack(
-                    alignment: AlignmentDirectional.center,
-                    children: <Widget>[
-                      TextLiquidFillMod(
-                        text: 'SPNJ',
-                        waveDuration: Duration(
-                          milliseconds: 1500,
-                        ),
-                        loadDuration: Duration(
-                          milliseconds: 4000,
-                        ),
-                        waveColor: StyleGuide.primaryColor,
-                        boxBackgroundColor: animation.value,
-                        textStyle: TextStyle(
-                          fontFamily: 'LeckerliOne',
-                          fontSize: 65.0,
-                        ),
-                      ),
-                      Text(
-                        'SPNJ',
-                        style: TextStyle(
-                          fontFamily: 'LeckerliOne',
-                          fontSize: 65.0,
-                          foreground: Paint()
-                            ..style = PaintingStyle.stroke
-                            ..strokeWidth = 1.0
-                            ..color = StyleGuide.primaryColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+      children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              LogoHero(size: 75.0),
+              LogoText(animation: animation),
+            ],
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height/6,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Button(
+                text: 'Log In',
+                onPressed: () => Navigator.pushNamed(context, Routes.LogIn),
+              ),
+              Button(
+                text: 'Sign Up',
+                onPressed: () => Navigator.pushNamed(context, Routes.SignUp),
+              ),
+            ],
+          )
+        ],
+    );
+  }
+}
+
+class LogoText extends StatelessWidget {
+  const LogoText({this.animation});
+
+  final Animation animation;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 200.0,
+      height: 240.0,
+      child: Stack(
+        alignment: AlignmentDirectional.center,
+        children: <Widget>[
+          TextLiquidFillMod(
+            text: 'SPNJ',
+            waveDuration: Duration(
+              milliseconds: 1500,
             ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(
-                StyleGuide.buttonHorSpacing,
-                0.0,
-                StyleGuide.buttonHorSpacing,
-                0.0,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Button(
-                    text: 'Log In',
-                    onPressed: () {},
-                  ),
-                  Button(
-                    text: 'Sign Up',
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
+            loadDuration: Duration(
+              milliseconds: 4000,
+            ),
+            waveColor: StyleGuide.primaryColor,
+            boxBackgroundColor: animation.value,
+            textStyle: TextStyle(
+              fontFamily: 'LeckerliOne',
+              fontSize: 65.0,
+            ),
+          ),
+          Text(
+            'SPNJ',
+            style: TextStyle(
+              fontFamily: 'LeckerliOne',
+              fontSize: 65.0,
+              foreground: Paint()
+                ..style = PaintingStyle.stroke
+                ..strokeWidth = 1.0
+                ..color = StyleGuide.primaryColor,
+            ),
+          ),
+        ],
       ),
     );
   }
