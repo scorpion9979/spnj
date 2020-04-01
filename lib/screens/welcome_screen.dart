@@ -22,12 +22,8 @@ class WelcomeScreen extends StatelessWidget {
                 Hero(
                   tag: 'logo',
                   child: Container(
-                    child: Image(
-                      image: AssetImage('images/logo.png'),
-                      color: StyleGuide.primaryColor,
-                      colorBlendMode: BlendMode.srcIn,
-                    ),
-                    height: 65.0,
+                    child: Image.asset('images/logo.png'),
+                    height: 75.0,
                   ),
                 ),
                 SizedBox(
