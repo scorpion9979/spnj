@@ -3,7 +3,7 @@ import 'dart:math';
 
 GlobalKey _textKey;
 
-class TextLiquidFillMod extends StatefulWidget {
+class TextLiquidFill extends StatefulWidget {
   /// Gives [TextStyle] to the text string.
   final TextStyle textStyle;
 
@@ -40,7 +40,7 @@ class TextLiquidFillMod extends StatefulWidget {
   /// By default it is set to blueAccent color
   final Color waveColor;
 
-  TextLiquidFillMod(
+  TextLiquidFill(
       {Key key,
       @required this.text,
       this.textStyle,
@@ -56,7 +56,7 @@ class TextLiquidFillMod extends StatefulWidget {
   _TextLiquidFillModState createState() => new _TextLiquidFillModState();
 }
 
-class _TextLiquidFillModState extends State<TextLiquidFillMod>
+class _TextLiquidFillModState extends State<TextLiquidFill>
     with TickerProviderStateMixin {
   AnimationController _waveController, _loadController;
   Duration _waveDuration, _loadDuration;

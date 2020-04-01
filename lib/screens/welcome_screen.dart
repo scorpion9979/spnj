@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:spnj/routes.dart';
 import 'package:spnj/widgets/screen.dart';
 import 'package:spnj/widgets/logo_hero.dart';
-import 'package:spnj/widgets/text_liquid_fill_mod.dart';
+import 'package:spnj/widgets/text_liquid_fill.dart';
 import 'package:spnj/consts.dart';
-import 'package:spnj/widgets/button.dart';
+import 'package:spnj/widgets/field_button.dart';
 
 class WelcomeScreen extends StatefulWidget {
   @override
@@ -57,11 +57,11 @@ class _WelcomeScreenState extends State<WelcomeScreen>
           Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Button(
+              FieldButton(
                 text: 'Log In',
                 onPressed: () => Navigator.pushNamed(context, Routes.LogIn),
               ),
-              Button(
+              FieldButton(
                 text: 'Sign Up',
                 onPressed: () => Navigator.pushNamed(context, Routes.SignUp),
               ),
@@ -85,7 +85,7 @@ class LogoText extends StatelessWidget {
       child: Stack(
         alignment: AlignmentDirectional.center,
         children: <Widget>[
-          TextLiquidFillMod(
+          TextLiquidFill(
             text: 'SPNJ',
             waveDuration: Duration(
               milliseconds: 1500,

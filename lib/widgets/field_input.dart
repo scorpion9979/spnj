@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:spnj/consts.dart';
 
-class InputField extends StatelessWidget {
+class FieldInput extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final bool obscureText;
   final keyboardType;
 
-  InputField({
+  FieldInput({
     this.controller,
     this.hintText,
     this.obscureText = false,

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:spnj/consts.dart';
 
-class Button extends StatelessWidget {
+class FieldButton extends StatelessWidget {
   final String text;
   final Function onPressed;
-  const Button({this.text, this.onPressed});
+  const FieldButton({this.text, this.onPressed});
 
   @override
   Widget build(BuildContext context) {

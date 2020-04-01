@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:spnj/widgets/screen.dart';
 import 'package:spnj/widgets/logo_hero.dart';
-import 'package:spnj/widgets/input_field.dart';
-import 'package:spnj/widgets/button.dart';
+import 'package:spnj/widgets/field_input.dart';
+import 'package:spnj/widgets/field_button.dart';
 
 class SignUpScreen extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
@@ -18,7 +18,7 @@ class SignUpScreen extends StatelessWidget {
           SizedBox(
             height: 30.0,
           ),
-          InputField(
+          FieldInput(
             controller: _emailController,
             hintText: 'Enter your email.',
             keyboardType: TextInputType.emailAddress,
@@ -26,7 +26,7 @@ class SignUpScreen extends StatelessWidget {
           SizedBox(
             height: 10,
           ),
-          Button(
+          FieldButton(
             text: 'Verify Email',
             onPressed: () {},
           )
