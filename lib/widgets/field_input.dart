@@ -18,11 +18,15 @@ class FieldInput extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 30.0),
       child: TextField(
+        style: TextStyle(
+          fontSize: 18,
+        ),
         controller: controller,
         enableSuggestions: true,
         keyboardType: keyboardType,
         obscureText: obscureText,
         cursorColor: StyleGuide.primaryColor,
+        textAlign: TextAlign.center,
         decoration: InputDecoration(
           hintText: hintText,
           contentPadding:

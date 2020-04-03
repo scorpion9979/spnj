@@ -44,30 +44,21 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     return Screen(
       backgroundColor: animation.value,
       children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              LogoHero(size: 75.0),
-              LogoText(animation: animation),
-            ],
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height/6,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              FieldButton(
-                text: 'Log In',
-                onPressed: () => Navigator.pushNamed(context, Routes.LogIn),
-              ),
-              FieldButton(
-                text: 'Sign Up',
-                onPressed: () => Navigator.pushNamed(context, Routes.SignUp),
-              ),
-            ],
-          )
-        ],
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            LogoHero(size: 75.0),
+            LogoText(animation: animation),
+          ],
+        ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height / 6,
+        ),
+        FieldButton(
+          text: 'Sign In',
+          onPressed: () => Navigator.pushNamed(context, Routes.SignIn),
+        ),
+      ],
     );
   }
 }

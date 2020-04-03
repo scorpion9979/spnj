@@ -27,10 +27,13 @@ class FieldButton extends StatelessWidget {
             color: Color(0x4FFFFFFF),
             textColor: StyleGuide.primaryColor,
             onPressed: onPressed,
-            child: Text(
-              text.toUpperCase(),
-              style: TextStyle(
-                fontSize: 18.0,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4.0),
+              child: Text(
+                text.toUpperCase(),
+                style: TextStyle(
+                  fontSize: 16.0,
+                ),
               ),
             ),
           ),
