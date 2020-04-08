@@ -38,7 +38,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
       final profile = UserUpdateInfo()
         ..displayName = _displayNameController.text;
       await user.updateProfile(profile);
-      Navigator.pushReplacementNamed(context, Routes.ProfileSetup);
+      Navigator.pushReplacementNamed(context, Routes.Home);
     } catch (e) {
       print(e);
     }

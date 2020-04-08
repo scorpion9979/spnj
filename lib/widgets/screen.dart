@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class Screen extends StatelessWidget {
   final Color backgroundColor;
   final List<Widget> children;
-  Screen({this.backgroundColor, this.children});
+  final Widget bottomNavigationBar;
+  Screen({this.backgroundColor, this.children, this.bottomNavigationBar});
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +23,7 @@ class Screen extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar: bottomNavigationBar,
     );
   }
 }
