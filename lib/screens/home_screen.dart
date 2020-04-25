@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:spnj/widgets/screen.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:like_button/like_button.dart';
@@ -9,15 +10,21 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
+final _firestore = Firestore.instance;
+
 class _HomeScreenState extends State<HomeScreen> {
   final _auth = FirebaseAuth.instance;
+
   FirebaseUser user;
-  int _page = 0;
+  int _page;
   GlobalKey _bottomNavigationKey = GlobalKey();
 
   @override
   void initState() {
     super.initState();
+    setState(() {
+      _page = 0;
+    });
     _getCurrentUser();
   }
 
@@ -35,9 +42,36 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Screen(
+      isHome: true,
       backgroundColor: Color(0xFFF2E368),
       children: <Widget>[
-        Idea(),
+        _page == 0
+            ? StreamBuilder(
+                stream: _firestore.collection('posts').snapshots(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Container();
+                  }
+                  final List<DocumentSnapshot> posts = snapshot.data.documents;
+                  print(posts);
+                  return Expanded(
+                    child: ListView(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 15,
+                      ),
+                      children: posts.map((p) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 5, vertical: 10),
+                          child: Post(post: p),
+                        );
+                      }).toList(),
+                    ),
+                  );
+                },
+              )
+            : Container(),
       ],
       bottomNavigationBar: CurvedNavigationBar(
         key: _bottomNavigationKey,
@@ -58,104 +92,118 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class Idea extends StatelessWidget {
-  const Idea({
-    Key key,
-  }) : super(key: key);
+class Post extends StatelessWidget {
+  final post;
+  const Post({this.post});
 
   @override
   Widget build(BuildContext context) {
     return Material(
       color: Colors.white,
-      borderRadius: BorderRadius.circular(18),
+      borderRadius: BorderRadius.circular(20),
       child: Container(
         width: MediaQuery.of(context).size.width,
-        height: 149,
-        child: Container(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.all(25),
-                child: Text(
-                  'Snakes probably think garden hoses are statues of famous snakes',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontSize: 17,
-                    color: Colors.black,
+        height: 145,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 25,
+                vertical: 0,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    '${post['user']}',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey,
+                    ),
                   ),
-                ),
-              ),
-              SizedBox(
-                height: 4,
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(25, 0, 25, 25),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    LikeButton(
-                      isLiked: false,
-                      size: 30,
-                      circleColor: CircleColor(
-                        start: Colors.redAccent[50],
-                        end: Colors.redAccent[200],
-                      ),
-                      bubblesColor: BubblesColor(
-                        dotPrimaryColor: Colors.redAccent[100],
-                        dotSecondaryColor: Colors.redAccent[300],
-                      ),
-                      likeBuilder: (bool isLiked) {
-                        return Icon(
-                          Icons.favorite,
-                          color: isLiked ? Colors.redAccent : Colors.grey,
-                          size: 30,
-                        );
-                      },
-                      likeCount: 0,
-                      countBuilder: (int count, bool isLiked, String text) {
-                        var color = isLiked ? Colors.redAccent : Colors.grey;
-                        Widget result = Text(
-                          text,
-                          style: TextStyle(color: color),
-                        );
-                        return result;
-                      },
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    '${post['text']}',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontSize: 17,
+                      color: Colors.black,
                     ),
-                    LikeButton(
-                      isLiked: false,
-                      size: 30,
-                      circleColor: CircleColor(
-                        start: Colors.blueGrey,
-                        end: Colors.blueGrey,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      LikeButton(
+                        isLiked: false,
+                        size: 30,
+                        circleColor: CircleColor(
+                          start: Colors.redAccent[50],
+                          end: Colors.redAccent[200],
+                        ),
+                        bubblesColor: BubblesColor(
+                          dotPrimaryColor: Colors.redAccent[100],
+                          dotSecondaryColor: Colors.redAccent[300],
+                        ),
+                        likeBuilder: (bool isLiked) {
+                          return Icon(
+                            Icons.favorite,
+                            color: isLiked ? Colors.redAccent : Colors.grey,
+                            size: 30,
+                          );
+                        },
+                        likeCount: post['likes'].length,
+                        countBuilder: (int count, bool isLiked, String text) {
+                          var color = isLiked ? Colors.redAccent : Colors.grey;
+                          Widget result = Text(
+                            text,
+                            style: TextStyle(color: color),
+                          );
+                          return result;
+                        },
                       ),
-                      bubblesColor: BubblesColor(
-                        dotPrimaryColor: Colors.black,
-                        dotSecondaryColor: Colors.blueGrey,
+                      LikeButton(
+                        isLiked: false,
+                        size: 30,
+                        circleColor: CircleColor(
+                          start: Colors.blueGrey,
+                          end: Colors.blueGrey,
+                        ),
+                        bubblesColor: BubblesColor(
+                          dotPrimaryColor: Colors.black,
+                          dotSecondaryColor: Colors.blueGrey,
+                        ),
+                        likeBuilder: (bool isLiked) {
+                          return Icon(
+                            Icons.delete,
+                            color: isLiked ? Colors.black : Colors.grey,
+                            size: 30,
+                          );
+                        },
+                        likeCount: post['dislikes'].length,
+                        countBuilder: (int count, bool isLiked, String text) {
+                          var color = isLiked ? Colors.black : Colors.grey;
+                          Widget result = Text(
+                            text,
+                            style: TextStyle(color: color),
+                          );
+                          return result;
+                        },
                       ),
-                      likeBuilder: (bool isLiked) {
-                        return Icon(
-                          Icons.delete,
-                          color: isLiked ? Colors.black : Colors.grey,
-                          size: 30,
-                        );
-                      },
-                      likeCount: 0,
-                      countBuilder: (int count, bool isLiked, String text) {
-                        var color = isLiked ? Colors.black : Colors.grey;
-                        Widget result = Text(
-                          text,
-                          style: TextStyle(color: color),
-                        );
-                        return result;
-                      },
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
