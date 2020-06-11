@@ -5,6 +5,7 @@ import 'package:spnj/widgets/screen.dart';
 import 'package:spnj/widgets/logo_hero.dart';
 import 'package:spnj/widgets/field_input.dart';
 import 'package:spnj/widgets/field_button.dart';
+import 'package:spnj/consts.dart';
 
 class ProfileSetupScreen extends StatefulWidget {
   @override
@@ -53,7 +54,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
         ),
         LogoHero(size: 200.0),
         SizedBox(
-          height: 30.0,
+          height: StyleGuide.separator(context),
         ),
         FieldInput(
           controller: _displayNameController,

@@ -47,12 +47,12 @@ class _WelcomeScreenState extends State<WelcomeScreen>
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            LogoHero(size: 85.0),
+            LogoHero(size: StyleGuide.logoIconSize),
             LogoText(animation: animation),
           ],
         ),
         SizedBox(
-          height: MediaQuery.of(context).size.height / 6,
+          height: StyleGuide.separator(context),
         ),
         FieldButton(
           text: 'Sign In',
@@ -88,14 +88,14 @@ class LogoText extends StatelessWidget {
             boxBackgroundColor: animation.value,
             textStyle: TextStyle(
               fontFamily: 'LeckerliOne',
-              fontSize: 75.0,
+              fontSize: StyleGuide.logoFontSize,
             ),
           ),
           Text(
             'SPNJ',
             style: TextStyle(
               fontFamily: 'LeckerliOne',
-              fontSize: 75.0,
+              fontSize: StyleGuide.logoFontSize,
               foreground: Paint()
                 ..style = PaintingStyle.stroke
                 ..strokeWidth = 1.0
