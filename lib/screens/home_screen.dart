@@ -46,16 +46,18 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: Color(0xFFF2E368),
       children: <Widget>[
         _page == 0
-            ? StreamBuilder(
-                stream: _firestore.collection('posts').snapshots(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return Container();
-                  }
-                  final List<DocumentSnapshot> posts = snapshot.data.documents;
-                  print(posts);
-                  return Expanded(
-                    child: ListView(
+            ? Container(
+                height: MediaQuery.of(context).size.height - 80,
+                child: StreamBuilder(
+                  stream: _firestore.collection('posts').snapshots(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return Container();
+                    }
+                    final List<DocumentSnapshot> posts =
+                        snapshot.data.documents;
+                    print(posts);
+                    return ListView(
                       padding: EdgeInsets.symmetric(
                         horizontal: 10,
                         vertical: 15,
@@ -67,27 +69,46 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Post(post: p),
                         );
                       }).toList(),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               )
             : Container(),
+        Align(
+          alignment: Alignment(0, 0.83),
+          child: Container(
+            height: 25.0,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFFF2E368).withOpacity(0.0),
+                  Color(0xFFF2E368),
+                ],
+              ),
+            ),
+          ),
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: CurvedNavigationBar(
+            key: _bottomNavigationKey,
+            backgroundColor: Color(0xFFF2E368),
+            animationDuration: Duration(milliseconds: 400),
+            animationCurve: Curves.easeInOutQuad,
+            height: 55,
+            items: <Widget>[
+              Icon(Icons.view_stream, size: 30),
+              Icon(Icons.add, size: 30),
+              Icon(Icons.perm_identity, size: 30),
+            ],
+            onTap: (index) {
+              setState(() => _page = index);
+            },
+          ),
+        ),
       ],
-      bottomNavigationBar: CurvedNavigationBar(
-        key: _bottomNavigationKey,
-        backgroundColor: Color(0xFFF2E368),
-        animationDuration: Duration(milliseconds: 400),
-        animationCurve: Curves.easeInOutQuad,
-        height: 55,
-        items: <Widget>[
-          Icon(Icons.view_stream, size: 30),
-          Icon(Icons.add, size: 30),
-          Icon(Icons.perm_identity, size: 30),
-        ],
-        onTap: (index) {
-          setState(() => _page = index);
-        },
-      ),
     );
   }
 }
