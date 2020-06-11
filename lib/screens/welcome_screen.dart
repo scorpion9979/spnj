@@ -47,7 +47,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            LogoHero(size: 75.0),
+            LogoHero(size: 85.0),
             LogoText(animation: animation),
           ],
         ),
@@ -88,14 +88,14 @@ class LogoText extends StatelessWidget {
             boxBackgroundColor: animation.value,
             textStyle: TextStyle(
               fontFamily: 'LeckerliOne',
-              fontSize: 65.0,
+              fontSize: 75.0,
             ),
           ),
           Text(
             'SPNJ',
             style: TextStyle(
               fontFamily: 'LeckerliOne',
-              fontSize: 65.0,
+              fontSize: 75.0,
               foreground: Paint()
                 ..style = PaintingStyle.stroke
                 ..strokeWidth = 1.0
