@@ -38,7 +38,7 @@ class FieldInput extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(15.0)),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: StyleGuide.primaryColor, width: 2.0),
+            borderSide: BorderSide(color: StyleGuide.primaryColor, width: 1.0),
             borderRadius: BorderRadius.all(Radius.circular(15.0)),
           ),
         ),

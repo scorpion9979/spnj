@@ -21,10 +21,10 @@ class FieldButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(15.0),
               side: BorderSide(
                 color: StyleGuide.primaryColor,
-                width: 1.0,
+                width: 0.6,
               ),
             ),
-            color: Color(0x4FFFFFFF),
+            color: Colors.white,
             textColor: StyleGuide.primaryColor,
             onPressed: onPressed,
             child: Padding(
