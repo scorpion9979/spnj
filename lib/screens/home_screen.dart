@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:spnj/widgets/field_button.dart';
+import 'package:spnj/widgets/field_input.dart';
 import 'package:spnj/widgets/screen.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:like_button/like_button.dart';
@@ -14,6 +16,7 @@ final _firestore = Firestore.instance;
 
 class _HomeScreenState extends State<HomeScreen> {
   final _auth = FirebaseAuth.instance;
+  final TextEditingController _ideaController = TextEditingController();
 
   FirebaseUser user;
   int _page;
@@ -73,7 +76,31 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                 ),
               )
-            : Container(),
+            : _page == 1
+                ? Container(
+                    child: Column(
+                      children: <Widget>[
+                        FieldInput(
+                          controller: _ideaController,
+                          hintText: 'Pick a display name',
+                          keyboardType: TextInputType.text,
+                        ),
+                        FieldButton(
+                          text: 'Submit Idea',
+                          onPressed: () {
+                            final Map<String, dynamic> data = {
+                              'text': _ideaController.text,
+                              'user': user.displayName,
+                              'likes': [],
+                              'dislikes': []
+                            };
+                            _firestore.collection('posts').add(data);
+                          },
+                        ),
+                      ],
+                    ),
+                  )
+                : Container(),
         Align(
           alignment: Alignment(0, 0.83),
           child: Container(
