@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -54,14 +52,13 @@ class _HomeScreenState extends State<HomeScreen> {
             ? Container(
                 height: MediaQuery.of(context).size.height - 80,
                 child: StreamBuilder(
-                  stream: _firestore.collection('posts').snapshots(),
+                  stream: _firestore.collection('posts').orderBy('timestamp', descending: true).snapshots(),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
                       return Container();
                     }
                     final List<DocumentSnapshot> posts =
                         snapshot.data.documents;
-                    print(posts);
                     return ListView(
                       padding: EdgeInsets.symmetric(
                         horizontal: 10,
@@ -71,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         return Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 5, vertical: 10),
-                          child: Post(post: p, user: user,),
+                          child: Post(post: p, user: user),
                         );
                       }).toList(),
                     );
@@ -94,7 +91,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               'text': _ideaController.text,
                               'user': user.displayName,
                               'likes': [],
-                              'dislikes': []
+                              'dislikes': [],
+                              'timestamp': DateTime.now().toUtc().millisecondsSinceEpoch,
                             };
                             _firestore.collection('posts').add(data);
                           },
