@@ -37,7 +37,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
   void _setupProfile() async {
     try {
       final profile = UserUpdateInfo()
-        ..displayName = _displayNameController.text;
+        ..displayName = '@' + _displayNameController.text;
       await user.updateProfile(profile);
       Navigator.pushReplacementNamed(context, Routes.Home);
     } catch (e) {
