@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -69,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         return Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 5, vertical: 10),
-                          child: Post(post: p),
+                          child: Post(post: p, user: user,),
                         );
                       }).toList(),
                     );
@@ -144,7 +146,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
 class Post extends StatelessWidget {
   final post;
-  const Post({this.post});
+  final user;
+  const Post({this.post, this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -193,7 +196,27 @@ class Post extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       LikeButton(
-                        isLiked: false,
+                        onTap: (t) async {
+                          if (!t) {
+                            // log(post['likes'].toString());
+                            final data = {
+                              'likes': FieldValue.arrayUnion([user.displayName]),
+                              'dislikes': FieldValue.arrayRemove([user.displayName]),
+                            };
+                            await _firestore.collection('posts').document(post.documentID).updateData(data);
+                            // log(post['likes'].toString());
+                            return true;
+                          } else {
+                            // log(post['likes'].toString());
+                            final data = {
+                              'likes': FieldValue.arrayRemove([user.displayName]),
+                            };
+                            await _firestore.collection('posts').document(post.documentID).updateData(data);
+                            // log(post['likes'].toString());
+                            return false;
+                          }
+                        },
+                        isLiked: post['likes'].contains(user.displayName),
                         size: 30,
                         circleColor: CircleColor(
                           start: Colors.redAccent[50],
@@ -221,7 +244,27 @@ class Post extends StatelessWidget {
                         },
                       ),
                       LikeButton(
-                        isLiked: false,
+                        onTap: (t) async {
+                          if (!t) {
+                            // log(post['likes'].toString());
+                            final data = {
+                              'dislikes': FieldValue.arrayUnion([user.displayName]),
+                              'likes': FieldValue.arrayRemove([user.displayName]),
+                            };
+                            await _firestore.collection('posts').document(post.documentID).updateData(data);
+                            // log(post['likes'].toString());
+                            return true;
+                          } else {
+                            // log(post['likes'].toString());
+                            final data = {
+                              'dislikes': FieldValue.arrayRemove([user.displayName]),
+                            };
+                            await _firestore.collection('posts').document(post.documentID).updateData(data);
+                            // log(post['likes'].toString());
+                            return false;
+                          }
+                        },
+                        isLiked: post['dislikes'].contains(user.displayName),
                         size: 30,
                         circleColor: CircleColor(
                           start: Colors.blueGrey,
