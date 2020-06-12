@@ -100,7 +100,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   )
-                : Container(),
+                : Center(
+                    child: Text(user.displayName),
+                  ),
         Align(
           alignment: Alignment(0, 0.83),
           child: Container(
