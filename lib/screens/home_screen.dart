@@ -160,7 +160,8 @@ class Post extends StatelessWidget {
       borderRadius: BorderRadius.circular(20),
       child: Container(
         width: MediaQuery.of(context).size.width,
-        height: 145,
+        // height: 145,
+        padding: EdgeInsets.symmetric(vertical: 25.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -207,7 +208,7 @@ class Post extends StatelessWidget {
                               'likes': FieldValue.arrayUnion([user.displayName]),
                               'dislikes': FieldValue.arrayRemove([user.displayName]),
                             };
-                            Timer(const Duration(milliseconds: 500), () {
+                            Timer(const Duration(milliseconds: 750), () {
                               _firestore.collection('posts').document(post.documentID).updateData(data);
                             });
                             // log(post['likes'].toString());
@@ -217,7 +218,7 @@ class Post extends StatelessWidget {
                             final data = {
                               'likes': FieldValue.arrayRemove([user.displayName]),
                             };
-                            Timer(const Duration(milliseconds: 500), () {
+                            Timer(const Duration(milliseconds: 750), () {
                               _firestore.collection('posts').document(post.documentID).updateData(data);
                             });
                             // log(post['likes'].toString());
