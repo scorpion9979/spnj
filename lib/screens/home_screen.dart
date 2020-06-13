@@ -1,8 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:spnj/widgets/field_button.dart';
-import 'package:spnj/widgets/field_input.dart';
+import 'package:spnj/widgets/field_text_area.dart';
 import 'package:spnj/widgets/screen.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:like_button/like_button.dart';
@@ -78,10 +80,12 @@ class _HomeScreenState extends State<HomeScreen> {
             : _page == 1
                 ? Container(
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        FieldInput(
+                        FieldTextArea(
                           controller: _ideaController,
-                          hintText: 'Pick a display name',
+                          hintText: 'Write your thoughts..',
+                          autoFocus: true,
                           keyboardType: TextInputType.text,
                         ),
                         FieldButton(
@@ -94,7 +98,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               'dislikes': [],
                               'timestamp': DateTime.now().toUtc().millisecondsSinceEpoch,
                             };
-                            _firestore.collection('posts').add(data);
+                            if (_ideaController.text.isNotEmpty) {
+                              _firestore.collection('posts').add(data);
+                            }
                           },
                         ),
                       ],
@@ -201,7 +207,9 @@ class Post extends StatelessWidget {
                               'likes': FieldValue.arrayUnion([user.displayName]),
                               'dislikes': FieldValue.arrayRemove([user.displayName]),
                             };
-                            await _firestore.collection('posts').document(post.documentID).updateData(data);
+                            Timer(const Duration(milliseconds: 500), () {
+                              _firestore.collection('posts').document(post.documentID).updateData(data);
+                            });
                             // log(post['likes'].toString());
                             return true;
                           } else {
@@ -209,7 +217,9 @@ class Post extends StatelessWidget {
                             final data = {
                               'likes': FieldValue.arrayRemove([user.displayName]),
                             };
-                            await _firestore.collection('posts').document(post.documentID).updateData(data);
+                            Timer(const Duration(milliseconds: 500), () {
+                              _firestore.collection('posts').document(post.documentID).updateData(data);
+                            });
                             // log(post['likes'].toString());
                             return false;
                           }
@@ -249,7 +259,10 @@ class Post extends StatelessWidget {
                               'dislikes': FieldValue.arrayUnion([user.displayName]),
                               'likes': FieldValue.arrayRemove([user.displayName]),
                             };
-                            await _firestore.collection('posts').document(post.documentID).updateData(data);
+                            
+                            Timer(const Duration(milliseconds: 500), () {
+                              _firestore.collection('posts').document(post.documentID).updateData(data);
+                            });
                             // log(post['likes'].toString());
                             return true;
                           } else {
@@ -257,8 +270,11 @@ class Post extends StatelessWidget {
                             final data = {
                               'dislikes': FieldValue.arrayRemove([user.displayName]),
                             };
-                            await _firestore.collection('posts').document(post.documentID).updateData(data);
+                            
                             // log(post['likes'].toString());
+                            Timer(const Duration(milliseconds: 500), () {
+                              _firestore.collection('posts').document(post.documentID).updateData(data);
+                            });
                             return false;
                           }
                         },

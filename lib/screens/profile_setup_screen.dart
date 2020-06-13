@@ -36,6 +36,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
 
   void _setupProfile() async {
     try {
+      // TODO: check to see if username isn't taken and all characters are valid
       final profile = UserUpdateInfo()
         ..displayName = '@' + _displayNameController.text;
       await user.updateProfile(profile);
