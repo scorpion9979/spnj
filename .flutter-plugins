@@ -5,3 +5,4 @@ firebase_auth=/opt/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth-0.15
 firebase_auth_web=/opt/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_auth_web-0.1.3+1/
 firebase_core=/opt/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core-0.4.5/
 firebase_core_web=/opt/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-0.1.1+2/
+libphonenumber=/opt/flutter/.pub-cache/hosted/pub.dartlang.org/libphonenumber-1.0.1/

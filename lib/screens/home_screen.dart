@@ -110,15 +110,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Text(user.displayName),
                   ),
         Align(
-          alignment: Alignment(0, 0.83),
+          alignment: Alignment.bottomCenter,
           child: Container(
-            height: 25.0,
+            height: 90.0,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
+                begin: Alignment(0, -1.0),
+                end: Alignment(0, -0.2),
                 colors: [
-                  Color(0xFFF2E368).withOpacity(0.0),
+                  Color(0xFFF2E368).withOpacity(0),
                   Color(0xFFF2E368),
                 ],
               ),
