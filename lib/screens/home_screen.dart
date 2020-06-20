@@ -107,7 +107,18 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   )
                 : Center(
-                    child: Text(user.displayName),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(user.displayName),
+                        FieldButton(
+                          text: 'Sign Out',
+                          onPressed: () {
+                            _auth.signOut();
+                          },
+                        ),
+                      ],
+                    ),
                   ),
         Align(
           alignment: Alignment.bottomCenter,
